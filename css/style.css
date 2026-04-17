@@ -1,0 +1,825 @@
+/* 1. CSS Variables (Dark Theme Base) */
+:root {
+  --bg: #0b0f19;
+  --surface: #111827;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --border: rgba(255, 255, 255, 0.08);
+  --glow: rgba(59, 130, 246, 0.25);
+  --font-main: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+/* 2. Base Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 3. Floating Navigation Pill */
+.floating-nav {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(92%, 950px);
+  padding: 0.7rem 1.5rem;
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: color 0.2s;
+}
+.logo .dot { color: var(--primary); }
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.35rem 0;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.25s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* 4. Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8rem 2rem 4rem;
+}
+.hero-content {
+  text-align: center;
+  max-width: 720px;
+  z-index: 2;
+}
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+}
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 0.75rem 1.75rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+.btn.primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 0 24px var(--glow);
+  transform: translateY(-2px);
+}
+.btn.secondary {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn.secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* 5. CSS-Only Developer Grid Background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 6. Mobile Responsive */
+@media (max-width: 768px) {
+  .floating-nav {
+    width: min(95%, 380px);
+    padding: 0.6rem 1rem;
+    top: 1rem;
+  }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.8rem; }
+  .hero { padding: 5rem 1.5rem 3rem; }
+  .hero h1 { font-size: 2.2rem; }
+  .subtitle { font-size: 1rem; }
+}
+
+
+/* ── About Section ── */
+.about { padding: 6rem 0; }
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 3rem;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--primary);
+  margin: 0.75rem auto 0;
+  border-radius: 2px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.about-bio .lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.highlight { color: var(--primary); font-weight: 500; }
+.about-bio p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.achievements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.badge {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.about-cards { display: grid; gap: 1.5rem; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-item {
+  margin-bottom: 1.25rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.2s ease;
+}
+.timeline-item:hover { border-left-color: var(--primary); }
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-item .date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.timeline-item h4 { font-size: 1rem; margin-bottom: 0.15rem; }
+.timeline-item .org { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+.timeline-item .desc {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ── Responsive Breakpoint ── */
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ── Scroll-Driven Reveal Animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 4s ease both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Graceful fallback for Safari/Firefox (keeps content visible) */
+/* @supports not (animation-timeline: view()) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+} */
+
+/* Accessibility: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+/* ── Tree Container & Base ── */
+.skills-section {
+  padding: 5rem 0;
+  background-color: var(--bg);
+  overflow: hidden; /* Prevents horizontal page scroll */
+}
+
+.tree-container {
+  width: 100%;
+  overflow-x: auto; /* Allows scrolling if tree is wider than screen on small devices */
+  padding-bottom: 30px;
+  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+  -ms-overflow-style: none;
+}
+
+.tree-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tree {
+  padding: 20px 0;
+  text-align: center;
+  white-space: nowrap; /* Keeps branches from breaking weirdly */
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.tree li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 15px 0 15px;
+  transition: all 0.3s;
+}
+
+/* ── Connector Lines (The "Circuit" Look) ── */
+.tree li::before, .tree li::after {
+  content: '';
+  position: absolute; top: 0; right: 50%;
+  border-top: 2px solid var(--border);
+  width: 50%; height: 20px;
+}
+.tree li::after {
+  right: auto; left: 50%;
+  border-left: 2px solid var(--border);
+}
+
+/* Remove connectors for single children */
+.tree li:only-child::after, .tree li:only-child::before {
+  display: none;
+}
+.tree li:only-child { padding-top: 0; }
+
+/* Remove connectors from first/last elements */
+.tree li:first-child::before, .tree li:last-child::after {
+  border: 0 none;
+}
+
+/* Add rounded corners to connectors */
+.tree li:last-child::before {
+  border-right: 2px solid var(--border);
+  border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+/* Vertical line dropping down to children */
+.tree ul ul::before {
+  content: '';
+  position: absolute; top: 0; left: 50%;
+  border-left: 2px solid var(--border);
+  width: 0; height: 20px;
+}
+
+/* ── Node Styling ── */
+.node {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 2;
+}
+
+/* Root Node (Core Engineering) */
+.node.root {
+  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  border: 1px solid transparent;
+}
+
+/* Category Nodes (Languages, Backend, etc.) */
+.node.category {
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* ── Leaf/Cluster Styling (The actual skills) ── */
+/* We use 'flex-wrap' here so skills form a grid instead of a long line */
+.leaves {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px; /* Limits width of skill cluster */
+  margin: 0 auto;
+}
+
+.leaves li {
+  padding: 10px 5px 0 5px;
+  float: none; /* Disable float for the wrapping grid */
+  display: inline-block;
+}
+
+/* Remove connectors for the leaf items since they are in a grid */
+.leaves li::before, .leaves li::after {
+  display: none; 
+}
+
+.leaf {
+  display: inline-block;
+  background: rgba(30, 41, 59, 0.7);
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+/* ── Hover Effects ── */
+.node:hover, .leaf:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px var(--glow);
+  border-color: var(--primary);
+}
+
+.node:hover {
+  background: var(--surface);
+  color: white;
+}
+
+
+/* ── Projects Section ── */
+.projects-section {
+  padding: 6rem 0;
+  background: var(--bg);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+/* ── Flip Card Container ── */
+.project-card {
+  perspective: 1000px; /* Creates 3D space */
+  height: 420px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Flip on hover or click (using :hover for desktop, .flipped class for click) */
+.project-card:hover .card-inner,
+.project-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hides back when flipped */
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Front Side Styling ── */
+.card-front {
+  z-index: 2;
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+
+.card-front h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tech-tags span {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--primary);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.flip-hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  opacity: 0.7;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ── Back Side Styling ── */
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border-color: var(--primary);
+  justify-content: flex-start;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.card-back h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+.card-back p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.achievement-box {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid var(--primary);
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  text-align: left;
+  width: 100%;
+}
+
+.achievement-box strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.achievement-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievement-box li {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.achievement-box li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+.highlight {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.tech-detail {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+/* ── Card Buttons (GitHub + Live Demo) ── */
+.card-links {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.btn-github, .btn-live {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* GitHub Button */
+.btn-github {
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+}
+.btn-github:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--glow);
+}
+
+/* Live Demo Button */
+.btn-live {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.btn-live:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--glow);
+}
+
+/* Mobile tweak: stack buttons if screen is very narrow */
+@media (max-width: 480px) {
+  .card-links { flex-direction: column; }
+  .btn-github, .btn-live { width: 100%; }
+}
+
+
+/* ── Contact Section ── */
+.contact-section {
+  padding: 6rem 0;
+  background: var(--bg);
+  text-align: center;
+}
+
+.contact-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top accent line animation */
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: var(--primary);
+}
+
+.contact-card:hover::before {
+  transform: scaleX(1);
+}
+
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-card:hover .contact-icon {
+  color: var(--text);
+  transform: scale(1.1);
+}
+
+.contact-card h3 {
+  color: var(--text);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.contact-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .contact-card { padding: 1.5rem 1 }}
